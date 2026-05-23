@@ -1,0 +1,32 @@
+# Data directories (we will use DVC or store data locally, not in Git)
+data/
+*.csv
+*.zip
+*.xlsx
+*.parquet
+MachineLearningRating_v3/
+
+# Python environments & caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# IDE / Editor config
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
