@@ -4,9 +4,9 @@ This repository contains the marketing risk and predictive analytics project for
 
 ---
 
-## 🚀 Progress & Tasks completed
+## Progress & Tasks completed
 
-### ✅ Task 1: Git, GitHub, CI/CD Pipeline & Exploratory Data Analysis (EDA)
+### Task 1: Git, GitHub, CI/CD Pipeline & Exploratory Data Analysis (EDA)
 - **CI/CD Pipeline**: Configured GitHub Actions CI (`.github/workflows/ci.yml`) to automatically run code style checks (`flake8`) and unit tests (`pytest`) on every commit or pull request.
 - **Modular Architecture**: Built reusable loaders (`src/data_loader.py`) and visualization engines (`src/eda_utils.py`).
 - **Comprehensive Jupyter Notebook**: Created a polished, narrative-driven EDA notebook (`notebooks/01_eda.ipynb`) that covers:
@@ -17,7 +17,7 @@ This repository contains the marketing risk and predictive analytics project for
 - **Reporting**: Generated a detailed, business-driven [Final EDA Report](reports/final_report.md) complete with key insights, province risk maps, and actionable recommendations.
 - **Testing**: Built comprehensive test cases under `tests/` to guarantee pipeline integrity.
 
-### ✅ Task 2: Data Version Control (DVC)
+### Task 2: Data Version Control (DVC)
 - **DVC Initialization**: Initialized a reproducible DVC workspace tracking major datasets without bloating Git history.
 - **Remote Storage Setup**: Configured external local remote storage (`C:\Users\HP\Desktop\dvc_storage`) mapping dataset hashes to lightweight Git metadata pointers.
 - **Data Pipeline Scripts**: Developed `scripts/clean_data.py` to automate a complete data cleaning and preprocessing pipeline (handling extreme nulls, removing duplicates, and imputing numeric/categorical features).
@@ -27,7 +27,7 @@ This repository contains the marketing risk and predictive analytics project for
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```bash
 ├── .dvc/                  # DVC internal configuration files
