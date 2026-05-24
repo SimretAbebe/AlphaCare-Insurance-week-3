@@ -1,10 +1,13 @@
-# Data directories (we will use DVC or store data locally, not in Git)
-data/
+# Data files - tracked by DVC, not Git
 *.csv
 *.zip
 *.xlsx
 *.parquet
 MachineLearningRating_v3/
+
+# Allow DVC pointer/metadata files
+!*.dvc
+!data/.gitignore
 
 # Python environments & caches
 __pycache__/
