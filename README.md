@@ -4,7 +4,7 @@ This repository contains the marketing risk and predictive analytics project for
 
 ---
 
-## Progress & Tasks completed
+## Progress & Tasks Completed
 
 ### Task 1: Git, GitHub, CI/CD Pipeline & Exploratory Data Analysis (EDA)
 - **CI/CD Pipeline**: Configured GitHub Actions CI (`.github/workflows/ci.yml`) to automatically run code style checks (`flake8`) and unit tests (`pytest`) on every commit or pull request.
@@ -25,6 +25,27 @@ This repository contains the marketing risk and predictive analytics project for
   - **Version 1**: The original pipe-delimited Raw Dataset.
   - **Version 2**: The automated cleaned and standardized Dataset.
 
+### Task 3: Statistical Hypothesis Testing
+- **Statistical Framework (`src/hypothesis_tests.py`)**: Built clean, reusable functions to automate Welch's t-test and Chi-Squared contingency analyses.
+- **Hypotheses Explored (`notebooks/02_hypothesis_testing.ipynb`)**:
+  - *Hypothesis 1 (Province Risk)*: Tested if risk/claims are significantly different between provinces (e.g., Gauteng vs others).
+  - *Hypothesis 2 (Gender Risk)*: Analyzed risk profiles between male and female policyholders.
+  - *Hypothesis 3 (Postal Code Claims)*: Assessed geographic variance in claim distribution across various postal codes.
+  - *Hypothesis 4 (Marital Status Differences)*: Examined if marital status plays a significant role in claim probability.
+- **A/B Testing Insights**: Used statistical p-values to validate risk differentials, providing statistical backup for geographic and demographic premium adjustments.
+
+### Task 4: Statistical Modeling & Risk-Based Pricing
+- **Reusable Modeling Library (`src/modeling.py`)**:
+  - Implemented risk feature engineering (`vehicle_age`, `risk_density`, `insured_per_age`) while excluding `totalpremium` to prevent data leakage.
+  - *Claim Severity (Regression)*: Log-transforms the target (`np.log1p`) with log-space clipping and `np.expm1` inverse-transformation to handle highly skewed claim distributions.
+  - *Claim Probability (Classification)*: Managed severe class imbalance via negative class downsampling (10% ratio) and balance weighting (`class_weight='balanced'` and `scale_pos_weight`).
+- **End-to-End Analytics Notebook (`notebooks/03_modeling.ipynb`)**:
+  - Fits, compares, and evaluates Linear Regression, Random Forest, and XGBoost models.
+- **Actuarial Calibration & Optimization**:
+  - Solves the probability scaling inflation from downsampling using an actuarial calibration factor (`0.019544`) to match portfolio claims (64.86 ZAR average).
+  - Implements the dynamic risk-based pricing formula: `opt_premium = Calibrated Pure Premium + 50 (Expense) + 20 (Profit)`.
+- **Model Interpretability (SHAP)**: Employs SHAP summary visualizations to determine top exposure drivers (`suminsured`, interaction risk density, and vehicle age).
+
 ---
 
 ## Project Structure
@@ -37,16 +58,22 @@ This repository contains the marketing risk and predictive analytics project for
 ├── data/                  # Data directory (tracked by DVC pointer files)
 │   └── insurance_data.csv.dvc
 ├── notebooks/
-│   └── 01_eda.ipynb       # Polished EDA and visual notebook
+│   ├── 01_eda.ipynb       # Polished EDA and visual notebook (Task 1)
+│   ├── 02_hypothesis_testing.ipynb # A/B Testing & statistical verification (Task 3)
+│   └── 03_modeling.ipynb  # Predictive modeling and premium optimization (Task 4)
 ├── reports/
 │   ├── final_report.md    # Actionable Business Insights Report
+│   ├── premium_comparison.png # Calibrated premiums vs baseline premium comparison (Task 4)
+│   ├── shap_summary_plot.png # XGBoost SHAP value feature importance (Task 4)
 │   └── *.png              # Visual plots from EDA analysis
 ├── scripts/
 │   └── clean_data.py      # Automated data cleaning pipeline (Task 2)
 ├── src/                   # Source code library
 │   ├── __init__.py
 │   ├── data_loader.py     # Clean loaders and preprocessors (Task 1)
-│   └── eda_utils.py       # Helper functions for modular visual calculations
+│   ├── eda_utils.py       # Helper functions for modular visual calculations (Task 1)
+│   ├── hypothesis_tests.py # Welch's t-test and Chi-Squared contingency tests (Task 3)
+│   └── modeling.py        # Dataset preprocessors and regression/classification engines (Task 4)
 ├── tests/
 │   └── test_data_loader.py# Pytest unit tests for Loader
 ├── .dvcignore
@@ -79,14 +106,8 @@ Ensure DVC is pointing to the appropriate remote local storage path to download 
 dvc pull
 ```
 
-### 3. Run Pipeline Scripts
-To reproduce the data-cleaning pipeline manually:
-```bash
-python scripts/clean_data.py
-```
-
-### 4. Run Tests & Validation
-Verify that the codebase complies with modular requirements and unit tests:
-```bash
-pytest
+### 3. Run Pipeline Scripts & Modeling
+* **Data Cleaning**: `python scripts/clean_data.py`
+* **Run Unit Tests**: `pytest`
+* **Run Notebooks**: Open Jupyter and run `01_eda.ipynb`, `02_hypothesis_testing.ipynb`, and `03_modeling.ipynb` in sequence.
 ```
